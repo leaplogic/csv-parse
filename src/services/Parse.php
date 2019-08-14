@@ -86,7 +86,8 @@ class Parse extends Component
 
     private function _parse($asset)
     {
-        $file = $_SERVER['DOCUMENT_ROOT'] . $asset->url;
+        $folder = $asset->getFolder(); 
+        $file = Craft::getAlias('@webroot') . "/" . strtolower($folder->name) . "/" .  $asset->getPath();
         // https://stackoverflow.com/a/9139210/317012
 
         if (($handle = fopen($file, "r")) !== FALSE) {
