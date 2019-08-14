@@ -29,14 +29,14 @@ Make sure to provide an Asset input to add a CSV file to your CMS. The plugin wi
 
 ### Grab CSV Header Row
 ```TWIG
-{% set headers = craft.csvparse.headers(entry.csvInput.first()) %}
+{% set headers = craft.csvParse.headers(entry.csvInput.one()) %}
 ```
 ### Grab CSV Entries
 In this example we are pulling a url param to grab which page of entries to return. 
 ```TWIG
 {% set amount = 20 %}
-{% set offset = craft.request.getParam('pg')|number_format * 20  %}
-{% set entries = craft.csvparse.entries(entry.csv.first(), offset, amount) %}
+{% set offset = craft.app.request.getParam('pg')|number_format * 20  %}
+{% set entries = craft.csvParse.entries(entry.csv.one(), offset, amount) %}
 ```
 ### Returned Object 
 ```PHP
@@ -75,14 +75,14 @@ In this example we are pulling a url param to grab which page of entries to retu
 ### Example Pagination
 ```TWIG
 {% set total = entries.meta.total %}
-{% set prevPg = craft.request.getParam('pg')|number_format - 1 == 0 ? 1 : craft.request.getParam('pg')|number_format - 1 %}
-{% set nextPg = craft.request.getParam('pg')|number_format + 1 >= (total / amount)|round ? (total / amount)|round : craft.request.getParam('pg')|number_format + 1  %}
-{% set filterType = craft.request.getParam('q') ? '&q=' ~ craft.request.getParam('q')|url_encode : craft.request.getParam('f') ? '&f=' ~ craft.request.getParam('f')|url_encode : ''  %}
+{% set prevPg = craft.app.request.getParam('pg')|number_format - 1 == 0 ? 1 : craft.app.request.getParam('pg')|number_format - 1 %}
+{% set nextPg = craft.app.request.getParam('pg')|number_format + 1 >= (total / amount)|round ? (total / amount)|round : craft.app.request.getParam('pg')|number_format + 1  %}
+{% set filterType = craft.app.request.getParam('q') ? '&q=' ~ craft.app.request.getParam('q')|url_encode : craft.app.request.getParam('f') ? '&f=' ~ craft.app.request.getParam('f')|url_encode : ''  %}
 {% if total > amount %}
     <div class="pagination">
         <a href="?pg={{ prevPg }}{{ filterType }}">PREV</a>
-        <span>{{ craft.request.getParam('pg') ? craft.request.getParam('pg') : 1  }} / {{ (total / amount)|round }}</span>
-        <a href="?pg={{ craft.request.getParam('pg') ? nextPg : 2 }}{{ filterType }}">NEXT</a>
+        <span>{{ craft.app.request.getParam('pg') ? craft.app.request.getParam('pg') : 1  }} / {{ (total / amount)|round }}</span>
+        <a href="?pg={{ craft.app.request.getParam('pg') ? nextPg : 2 }}{{ filterType }}">NEXT</a>
     </div>
 {% endif %}
 ```
