@@ -1,0 +1,43 @@
+{
+    "name": "leaplogic/csv-parse",
+    "description": "Parse CSV file in template provide via paginated results.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "csv parse"
+    ],
+    "support": {
+        "docs": "https://github.com/csv-parse/csv-parse/blob/master/README.md",
+        "issues": "https://github.com/csv-parse/csv-parse/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leap Logic",
+            "homepage": "https://leaplogic.net"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "leaplogic\\csvparse\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "CSV Parse",
+        "handle": "csv-parse",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/csv-parse/csv-parse/master/CHANGELOG.md",
+        "components": {
+            "parse": "leaplogic\\csvparse\\services\\Parse"
+        },
+        "class": "leaplogic\\csvparse\\CsvParse"
+    }
+}
