@@ -12,6 +12,7 @@ namespace leaplogic\csvparse\services;
 
 use leaplogic\csvparse\CsvParse;
 
+use Yii;
 use Craft;
 use craft\base\Component;
 
@@ -86,9 +87,11 @@ class Parse extends Component
 
     private function _parse($asset)
     {
+        $volumePath = $asset->getVolume()->settings['path'];
+        $folderPath = $asset->getFolder()->path;
         $folder = $asset->getFolder(); 
-        $file = Craft::getAlias('@webroot') . "/" . strtolower($folder->name) . "/" .  $asset->getPath();
-        // https://stackoverflow.com/a/9139210/317012
+        $file = Yii::getAlias($volumePath) . $folderPath .'/'. $asset->filename;
+        // https://craftcms.stackexchange.com/a/10817/331
 
         if (($handle = fopen($file, "r")) !== FALSE) {
             # Set the parent multidimensional array key to 0.
